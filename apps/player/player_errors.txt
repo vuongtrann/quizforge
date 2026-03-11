@@ -1,0 +1,60 @@
+        Info Looking up installed tauri packages to check mismatched versions...
+     Running beforeBuildCommand `pnpm build`
+   Compiling quizforge-player v0.1.0 (E:\QuizForce\apps\player\src-tauri)
+warning: unused import: `Deserialize`
+ --> src\commands\validate.rs:1:13
+  |
+1 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::sync::Arc`
+ --> src\security\mutex.rs:2:5
+  |
+2 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+error[E0599]: no method named `webview_windows` found for reference `&AppHandle` in the current scope
+   --> src\lib.rs:21:44
+    |
+ 21 |                 let windows = app.handle().webview_windows();
+    |                                            ^^^^^^^^^^^^^^^
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: there is a method `get_webview_window` with a similar name, but with different arguments
+   --> C:\Users\vuong\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\tauri-2.10.3\src\lib.rs:582:3
+    |
+582 |   fn get_webview_window(&self, label: &str) -> Option<WebviewWindow<R>> {
+    |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: trait `Manager` which provides `webview_windows` is implemented but not in scope; perhaps you want to import it
+    |
+  1 + use tauri::Manager;
+    |
+
+error[E0282]: type annotations needed
+  --> src\lib.rs:23:21
+   |
+23 |                     window.with_webview(|webview| {
+   |                     ^^^^^^ cannot infer type
+
+error[E0282]: type annotations needed
+  --> src\lib.rs:23:42
+   |
+23 |                     window.with_webview(|webview| {
+   |                                          ^^^^^^^
+...
+26 |                             webview.controller().CoreWebView2().unwrap().Settings().unwrap().SetAreDevToolsEnabled(false).unwrap();
+   |                             ------- type must be known at this point
+   |
+help: consider giving this closure parameter an explicit type
+   |
+23 |                     window.with_webview(|webview: /* Type */| {
+   |                                                 ++++++++++++
+
+Some errors have detailed explanations: E0282, E0599.
+For more information about an error, try `rustc --explain E0282`.
+warning: `quizforge-player` (lib) generated 2 warnings
+error: could not compile `quizforge-player` (lib) due to 3 previous errors; 2 warnings emitted
+failed to build app: failed to build app
+       Error failed to build app: failed to build app

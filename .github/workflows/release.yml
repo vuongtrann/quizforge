@@ -1,0 +1,253 @@
+name: Release
+
+# Trigger: push a tag like v0.2.0
+# Or manually via workflow_dispatch with version input
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g. 0.2.0)'
+        required: true
+        type: string
+
+# Only allow one release at a time
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PNPM_VERSION: 9
+  NODE_VERSION: 20
+
+jobs:
+  # ──────────────────────────────────────────
+  # 1. Run CI checks first
+  # ──────────────────────────────────────────
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm lint
+
+  # ──────────────────────────────────────────
+  # 2. Build Creator (Windows)
+  # ──────────────────────────────────────────
+  build-creator:
+    needs: ci
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: './apps/creator/src-tauri -> target'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build Creator
+        uses: tauri-apps/tauri-action@v0
+        id: build-creator
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          projectPath: apps/creator
+          tauriScript: pnpm tauri
+
+      - name: Upload Creator Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: creator-artifacts
+          path: |
+            apps/creator/src-tauri/target/release/bundle/nsis/*.exe
+            apps/creator/src-tauri/target/release/bundle/nsis/*.exe.sig
+            apps/creator/src-tauri/target/release/bundle/msi/*.msi
+            apps/creator/src-tauri/target/release/bundle/msi/*.msi.sig
+
+  # ──────────────────────────────────────────
+  # 3. Build Player (Windows)
+  # ──────────────────────────────────────────
+  build-player:
+    needs: ci
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: './apps/player/src-tauri -> target'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build Player
+        uses: tauri-apps/tauri-action@v0
+        id: build-player
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          projectPath: apps/player
+          tauriScript: pnpm tauri
+
+      - name: Upload Player Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: player-artifacts
+          path: |
+            apps/player/src-tauri/target/release/bundle/nsis/*.exe
+            apps/player/src-tauri/target/release/bundle/nsis/*.exe.sig
+            apps/player/src-tauri/target/release/bundle/msi/*.msi
+            apps/player/src-tauri/target/release/bundle/msi/*.msi.sig
+
+  # ──────────────────────────────────────────
+  # 4. Create GitHub Release + Update Manifests
+  # ──────────────────────────────────────────
+  publish:
+    needs: [build-creator, build-player]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=v${{ inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            TAG="${{ github.ref_name }}"
+            echo "version=${TAG#v}" >> $GITHUB_OUTPUT
+            echo "tag=$TAG" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: List artifacts
+        run: find artifacts -type f | sort
+
+      - name: Generate update manifests
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TAG="${{ steps.version.outputs.tag }}"
+          REPO="${{ github.repository }}"
+          BASE_URL="https://github.com/${REPO}/releases/download/${TAG}"
+          DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          # ── Creator manifest ──
+          CREATOR_NSIS_SIG=""
+          CREATOR_MSI_SIG=""
+
+          for f in artifacts/creator-artifacts/**/*.exe.sig artifacts/creator-artifacts/*.exe.sig; do
+            [ -f "$f" ] && CREATOR_NSIS_SIG=$(cat "$f") && break
+          done
+          for f in artifacts/creator-artifacts/**/*.msi.sig artifacts/creator-artifacts/*.msi.sig; do
+            [ -f "$f" ] && CREATOR_MSI_SIG=$(cat "$f") && break
+          done
+
+          CREATOR_NSIS_NAME=""
+          for f in artifacts/creator-artifacts/**/*.exe artifacts/creator-artifacts/*.exe; do
+            [ -f "$f" ] && [[ "$f" != *.sig ]] && CREATOR_NSIS_NAME=$(basename "$f") && break
+          done
+
+          cat > creator-update.json << MANIFEST
+          {
+            "version": "${VERSION}",
+            "notes": "QuizForge Creator ${TAG} — Xem chi tiết tại: ${BASE_URL}",
+            "pub_date": "${DATE}",
+            "platforms": {
+              "windows-x86_64": {
+                "signature": "${CREATOR_NSIS_SIG}",
+                "url": "${BASE_URL}/${CREATOR_NSIS_NAME}"
+              }
+            }
+          }
+          MANIFEST
+
+          # ── Player manifest ──
+          PLAYER_NSIS_SIG=""
+          for f in artifacts/player-artifacts/**/*.exe.sig artifacts/player-artifacts/*.exe.sig; do
+            [ -f "$f" ] && PLAYER_NSIS_SIG=$(cat "$f") && break
+          done
+
+          PLAYER_NSIS_NAME=""
+          for f in artifacts/player-artifacts/**/*.exe artifacts/player-artifacts/*.exe; do
+            [ -f "$f" ] && [[ "$f" != *.sig ]] && PLAYER_NSIS_NAME=$(basename "$f") && break
+          done
+
+          cat > player-update.json << MANIFEST
+          {
+            "version": "${VERSION}",
+            "notes": "QuizForge Player ${TAG} — Xem chi tiết tại: ${BASE_URL}",
+            "pub_date": "${DATE}",
+            "platforms": {
+              "windows-x86_64": {
+                "signature": "${PLAYER_NSIS_SIG}",
+                "url": "${BASE_URL}/${PLAYER_NSIS_NAME}"
+              }
+            }
+          }
+          MANIFEST
+
+          echo "=== Creator Update Manifest ==="
+          cat creator-update.json
+          echo ""
+          echo "=== Player Update Manifest ==="
+          cat player-update.json
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: QuizForge ${{ steps.version.outputs.tag }}
+          draft: true
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            artifacts/creator-artifacts/**/*
+            artifacts/player-artifacts/**/*
+            creator-update.json
+            player-update.json

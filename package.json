@@ -1,0 +1,28 @@
+{
+  "name": "quizforge",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.31.0",
+  "description": "QuizForge — Modern quiz creation and examination platform",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "clean": "turbo clean"
+  },
+  "keywords": [
+    "quiz",
+    "education",
+    "tauri",
+    "react"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^25.3.5",
+    "turbo": "^2.8.14",
+    "typescript": "^5.9.3"
+  }
+}

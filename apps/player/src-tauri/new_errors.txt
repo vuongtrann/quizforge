@@ -1,0 +1,51 @@
+    Checking quizforge-player v0.1.0 (E:\QuizForge\apps\player\src-tauri)
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `flate2`
+ --> src\commands\result.rs:5:5
+  |
+5 | use flate2::write::GzEncoder;
+  |     ^^^^^^ use of unresolved module or unlinked crate `flate2`
+  |
+  = help: if you wanted to use a crate named `flate2`, use `cargo add flate2` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `flate2`
+ --> src\commands\result.rs:6:5
+  |
+6 | use flate2::Compression;
+  |     ^^^^^^ use of unresolved module or unlinked crate `flate2`
+  |
+  = help: if you wanted to use a crate named `flate2`, use `cargo add flate2` to add it to your `Cargo.toml`
+
+warning: unused import: `Deserialize`
+ --> src\commands\validate.rs:1:13
+  |
+1 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+error[E0282]: type annotations needed
+  --> src\commands\result.rs:16:53
+   |
+16 |     encoder.write_all(json_str.as_bytes()).map_err(|e| e.to_string())?;
+   |                                                     ^  - type must be known at this point
+   |
+help: consider giving this closure parameter an explicit type
+   |
+16 |     encoder.write_all(json_str.as_bytes()).map_err(|e: /* Type */| e.to_string())?;
+   |                                                      ++++++++++++
+
+error[E0282]: type annotations needed
+  --> src\commands\result.rs:17:31
+   |
+17 |     encoder.finish().map_err(|e| e.to_string())?;
+   |                               ^  - type must be known at this point
+   |
+help: consider giving this closure parameter an explicit type
+   |
+17 |     encoder.finish().map_err(|e: /* Type */| e.to_string())?;
+   |                                ++++++++++++
+
+Some errors have detailed explanations: E0282, E0432, E0433.
+For more information about an error, try `rustc --explain E0282`.
+warning: `quizforge-player` (lib) generated 1 warning
+error: could not compile `quizforge-player` (lib) due to 4 previous errors; 1 warning emitted

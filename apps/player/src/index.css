@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --qf-primary: #0284c7;
+        /* Tailwind sky-600 */
+        --qf-primary-light: #e0f2fe;
+        /* Tailwind sky-100 */
+        --qf-bg: #f8fafc;
+        /* Tailwind slate-50 */
+        --qf-text: #0f172a;
+        /* Tailwind slate-900 */
+        --qf-font: 'Inter', system-ui, -apple-system, sans-serif;
+        --qf-radius: 0.5rem;
+    }
+
+    body {
+        @apply m-0 p-0 overflow-hidden;
+        background-color: var(--qf-bg);
+        color: var(--qf-text);
+        font-family: var(--qf-font) !important;
+    }
+}
+
+/* Custom form inputs using Theme CSS variables */
+.qf-input:focus {
+    border-color: var(--qf-primary) !important;
+    background-color: var(--qf-primary-light) !important;
+}
+
+.qf-hover-text:hover {
+    color: var(--qf-primary) !important;
+}
+
+/* Custom Scrollbar for Outline Panel */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-300;
+}

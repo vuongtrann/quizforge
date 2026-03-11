@@ -1,0 +1,16 @@
+warning: unused import: `sqlx::Row`
+ --> src\commands\student_commands.rs:6:5
+  |
+6 | use sqlx::Row;
+  |     ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `chrono::Utc`
+ --> src\commands\student_commands.rs:7:5
+  |
+7 | use chrono::Utc;
+  |     ^^^^^^^^^^^
+
+warning: `creator` (lib) generated 2 warnings (run `cargo fix --lib -p creator` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.81s

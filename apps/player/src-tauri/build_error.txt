@@ -1,0 +1,220 @@
+   Compiling windows-sys v0.61.2
+   Compiling thiserror v2.0.18
+   Compiling zerofrom v0.1.6
+   Compiling darling_core v0.21.3
+   Compiling regex-automata v0.4.14
+   Compiling thiserror v1.0.69
+   Compiling phf_macros v0.10.0
+   Compiling string_cache v0.8.9
+   Compiling serde v1.0.228
+   Compiling phf v0.11.3
+   Compiling jsonptr v0.6.3
+   Compiling windows-core v0.61.2
+   Compiling windows-sys v0.59.0
+   Compiling aws-lc-sys v0.38.0
+   Compiling cargo_toml v0.22.3
+   Compiling base64 v0.22.1
+   Compiling cargo_metadata v0.19.2
+   Compiling webview2-com-sys v0.38.2
+   Compiling yoke v0.8.1
+   Compiling markup5ever v0.14.1
+   Compiling zerovec v0.11.5
+   Compiling zerotrie v0.2.3
+   Compiling json-patch v3.0.1
+   Compiling windows-collections v0.2.0
+   Compiling windows-future v0.2.1
+   Compiling windows-numerics v0.2.0
+   Compiling dpi v0.1.2
+   Compiling tinystr v0.8.2
+   Compiling potential_utf v0.1.4
+   Compiling phf v0.10.1
+   Compiling icu_collections v2.1.1
+   Compiling icu_locale_core v2.1.1
+   Compiling html5ever v0.29.1
+   Compiling windows v0.61.3
+   Compiling cssparser v0.29.6
+   Compiling cfb v0.7.3
+   Compiling selectors v0.24.0
+   Compiling icu_provider v2.1.1
+   Compiling windows-targets v0.53.5
+   Compiling flate2 v1.1.9
+   Compiling time v0.3.47
+   Compiling crossbeam-utils v0.8.21
+   Compiling rustls-pki-types v1.14.0
+   Compiling regex v1.12.3
+   Compiling icu_properties v2.1.2
+   Compiling icu_normalizer v2.1.1
+   Compiling kuchikiki v0.8.8-speedreader
+   Compiling erased-serde v0.4.10
+   Compiling crypto-common v0.1.7
+   Compiling toml_datetime v0.7.5+spec-1.1.0
+   Compiling http-body v1.0.1
+   Compiling darling_macro v0.21.3
+   Compiling serde_spanned v1.0.4
+   Compiling phf_shared v0.11.3
+   Compiling winreg v0.55.0
+   Compiling windows-version v0.1.7
+   Compiling unicode-segmentation v1.12.0
+   Compiling futures-task v0.3.32
+   Compiling untrusted v0.9.0
+   Compiling futures-io v0.3.32
+   Compiling embed-resource v3.0.6
+   Compiling futures-util v0.3.32
+   Compiling darling v0.21.3
+   Compiling idna_adapter v1.2.1
+   Compiling toml v0.9.12+spec-1.1.0
+   Compiling cookie v0.18.1
+   Compiling idna v1.1.0
+   Compiling tauri-winres v0.3.5
+   Compiling serde_with_macros v3.17.0
+   Compiling serde-untagged v0.1.9
+   Compiling digest v0.10.7
+   Compiling url v2.5.8
+   Compiling png v0.17.16
+   Compiling crossbeam-channel v0.5.15
+   Compiling windows-sys v0.60.2
+   Compiling urlpattern v0.3.0
+   Compiling schemars v0.8.22
+   Compiling infer v0.19.0
+   Compiling serde_with v3.17.0
+   Compiling windows-strings v0.5.1
+   Compiling windows-result v0.4.1
+   Compiling try-lock v0.2.5
+   Compiling atomic-waker v1.1.2
+   Compiling semver v1.0.27
+   Compiling tower-service v0.3.3
+   Compiling want v0.3.1
+   Compiling windows-registry v0.6.1
+   Compiling ico v0.5.0
+   Compiling sha2 v0.10.9
+   Compiling httparse v1.10.1
+   Compiling futures-channel v0.3.32
+   Compiling inout v0.1.4
+   Compiling pin-utils v0.1.0
+   Compiling keyboard-types v0.7.0
+   Compiling cipher v0.4.4
+   Compiling universal-hash v0.5.1
+   Compiling sync_wrapper v1.0.2
+   Compiling windows-result v0.1.2
+   Compiling opaque-debug v0.3.1
+   Compiling tower-layer v0.3.3
+   Compiling mime v0.3.17
+   Compiling ipnet v2.12.0
+   Compiling polyval v0.6.2
+   Compiling serialize-to-javascript v0.1.2
+   Compiling windows-core v0.53.0
+   Compiling getrandom v0.3.4
+   Compiling spin v0.9.8
+   Compiling iri-string v0.7.10
+   Compiling ghash v0.5.1
+   Compiling hmac v0.12.1
+   Compiling aes v0.8.4
+   Compiling flume v0.11.1
+   Compiling ctr v0.9.2
+   Compiling http-body-util v0.1.3
+   Compiling aead v0.5.2
+   Compiling tauri-utils v2.8.3
+   Compiling window-vibrancy v0.6.0
+   Compiling open v5.3.3
+   Compiling encoding_rs v0.8.35
+   Compiling fastrand v2.3.0
+   Compiling windows v0.53.0
+   Compiling pbkdf2 v0.12.2
+   Compiling aes-gcm v0.10.3
+   Compiling muda v0.17.1
+   Compiling socket2 v0.6.3
+   Compiling mio v1.1.1
+   Compiling winapi-util v0.1.11
+   Compiling dirs-sys v0.5.0
+   Compiling same-file v1.0.6
+   Compiling softbuffer v0.4.8
+   Compiling walkdir v2.5.0
+   Compiling dirs v6.0.0
+   Compiling tokio v1.50.0
+   Compiling socket-pktinfo v0.3.2
+   Compiling if-addrs v0.15.0
+   Compiling machine-uid v0.5.4
+   Compiling mdns-sd v0.18.1
+   Compiling named-lock v0.4.1
+   Compiling aws-lc-rs v1.16.1
+   Compiling rustls v0.23.37
+   Compiling tokio-util v0.7.18
+   Compiling tower v0.5.3
+   Compiling tower-http v0.6.8
+   Compiling h2 v0.4.13
+   Compiling tauri-build v2.5.6
+   Compiling tauri-plugin v2.5.4
+   Compiling tauri-codegen v2.5.5
+   Compiling rustls-webpki v0.103.9
+   Compiling hyper v1.8.1
+   Compiling tauri v2.10.3
+   Compiling tauri-plugin-opener v2.5.3
+   Compiling tauri-macros v2.5.5
+   Compiling quizforge-player v0.1.0 (E:\QuizForce\apps\player\src-tauri)
+   Compiling hyper-util v0.1.20
+   Compiling tokio-rustls v0.26.4
+   Compiling rustls-platform-verifier v0.6.2
+   Compiling hyper-rustls v0.27.7
+   Compiling reqwest v0.13.2
+   Compiling tao v0.34.6
+   Compiling webview2-com v0.38.2
+   Compiling tauri-runtime v2.10.1
+   Compiling wry v0.54.2
+   Compiling tauri-runtime-wry v2.10.1
+warning: unused import: `Deserialize`
+ --> src\commands\validate.rs:1:13
+  |
+1 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::sync::Arc`
+ --> src\security\mutex.rs:2:5
+  |
+2 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused variable: `app`
+  --> src\lib.rs:17:17
+   |
+17 |         .setup(|app| {
+   |                 ^^^ help: if this is intentional, prefix it with an underscore: `_app`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `AppMutex` is never constructed
+ --> src\security\mutex.rs:4:12
+  |
+4 | pub struct AppMutex {
+  |            ^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: associated function `new` is never used
+ --> src\security\mutex.rs:9:12
+  |
+8 | impl AppMutex {
+  | ------------- associated function in this implementation
+9 |     pub fn new(quiz_id: &str) -> Result<Self, String> {
+  |            ^^^
+
+warning: `quizforge-player` (lib) generated 5 warnings (run `cargo fix --lib -p quizforge-player` to apply 3 suggestions)
+warning: unused import: `std::sync::Arc`
+ --> src\security\mutex.rs:2:5
+  |
+2 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `decrypt_data` is never used
+ --> src\security\crypto.rs:9:8
+  |
+9 | pub fn decrypt_data(encrypted_b64: &str, quiz_id: &str, timestamp: &str, salt_b64: &str, nonce_b64: &str) -> Result<String, String> {
+  |        ^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `quizforge-player` (bin "quizforge-player") generated 2 warnings (run `cargo fix --bin "quizforge-player" -p quizforge-player` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2m 02s

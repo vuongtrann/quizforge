@@ -1,0 +1,49 @@
+[package]
+name = "creator"
+version = "1.0.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "creator_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sqlx = { version = "0.8.6", features = ["sqlite", "runtime-tokio-rustls", "chrono", "uuid"] }
+thiserror = "2.0.18"
+chrono = { version = "0.4.44", features = ["serde"] }
+uuid = { version = "1.22.0", features = ["serde", "v4"] }
+image = "0.25.9"
+tauri-plugin-sql = { version = "2.3.2", features = ["sqlite"] }
+tauri-plugin-fs = "2.4.5"
+tauri-plugin-dialog = "2.6.0"
+tauri-plugin-shell = "2.3.5"
+tauri-plugin-notification = "2.3.3"
+tauri-plugin-updater = "2.10.0"
+zip = "8.2.0"
+aes-gcm = "0.10.3"
+pbkdf2 = "0.12.2"
+sha2 = "0.10.9"
+base64 = "0.22.1"
+walkdir = "2.5.0"
+rand = "0.10.0"
+axum = "0.8.8"
+tokio = { version = "1.50.0", features = ["full", "macros"] }
+mdns-sd = "0.18.1"
+calamine = "0.34.0"
+rust_xlsxwriter = "0.94.0"
+flate2 = "1.1.0"
+

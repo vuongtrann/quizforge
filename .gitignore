@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+out/
+.next/
+target/
+
+# Turbo
+.turbo/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Tauri
+apps/creator/src-tauri/target/
+apps/player-shell/src-tauri/target/
+
+# Test
+coverage/
+
+# Misc
+*.log
+files.zip
+build_log.txt
+*.db
+*.db-journal
+
+# AI & Editor specific
+.claude/
+.gemini/
+.cursor/
