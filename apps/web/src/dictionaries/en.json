@@ -1,0 +1,52 @@
+{
+  "hero": {
+    "badge": "🚀 Introducing QuizForge v1.0.0",
+    "title": "The Optimal Offline Exam Distributed Platform",
+    "description": "QuizForge is a powerful Monorepo system designed for educators. Create, distribute as single executables, and collect results via LAN without internet.",
+    "cta_download": "Download Creator App",
+    "cta_docs": "Read the Docs"
+  },
+  "features": {
+    "single_exe": {
+      "title": "Single Executable",
+      "description": "Exams and data are securely packed into one standalone `.exe` using Advanced Binary Overlays."
+    },
+    "lan": {
+      "title": "LAN Submissions",
+      "description": "No internet required. Students submit directly to your local Creator Server via Wi-Fi."
+    },
+    "security": {
+      "title": "AES-256 Validated",
+      "description": "Military-grade encryption for all quiz settings and answers to prevent cheating."
+    }
+  },
+  "download": {
+    "title": "Ready to transform your classroom?",
+    "description": "Get the latest QuizForge release below.",
+    "button": "QuizForge_Creator_1.0.0_setup.exe"
+  },
+  "nav": {
+    "features": "Features",
+    "feedback": "Feedback",
+    "roadmap": "Roadmap",
+    "signin": "Sign In",
+    "download": "Download"
+  },
+  "feedback": {
+    "title": "Feedback & Reviews",
+    "description": "Found a bug? Have a suggestion? Or simply love the software? Let us know below.",
+    "success_title": "Thank you!",
+    "success_description": "Your feedback has been submitted to the moderation queue.",
+    "label_message": "Your message",
+    "placeholder_message": "I think the question editor needs more colors...",
+    "label_attachments": "Attachments (Optional)",
+    "attachments_hint": "Drag & drop images here, or click to select",
+    "submit": "Send Feedback"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "welcome": "Welcome back",
+    "reviews": "Feedbacks & Reviews",
+    "releases": "App Releases"
+  }
+}

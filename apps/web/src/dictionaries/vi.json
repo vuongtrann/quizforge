@@ -1,0 +1,52 @@
+{
+  "hero": {
+    "badge": "🚀 Giới thiệu QuizForge v1.0.0",
+    "title": "Nền tảng Phân phối Bài thi Ngoại tuyến Tối ưu",
+    "description": "QuizForge là một hệ thống Monorepo mạnh mẽ dành cho giáo viên. Tạo, phân phối dưới dạng file chạy độc lập và thu bài qua LAN không cần internet.",
+    "cta_download": "Tải App Creator",
+    "cta_docs": "Xem Tài liệu"
+  },
+  "features": {
+    "single_exe": {
+      "title": "Một File Duy Nhất",
+      "description": "Đề thi và dữ liệu được đóng gói bảo mật trong một file `.exe` duy nhất bằng công nghệ Binary Overlay."
+    },
+    "lan": {
+      "title": "Nộp bài qua LAN",
+      "description": "Không cần internet. Học sinh nộp bài trực tiếp vào Server của giáo viên qua Wi-Fi nội bộ."
+    },
+    "security": {
+      "title": "Bảo mật AES-256",
+      "description": "Mã hóa cấp độ quân đội cho tất cả cài đặt và đáp án để chống gian lận tuyệt đối."
+    }
+  },
+  "download": {
+    "title": "Sẵn sàng nâng tầm lớp học của bạn?",
+    "description": "Tải ngay phiên bản QuizForge mới nhất bên dưới.",
+    "button": "QuizForge_Creator_1.0.0_setup.exe"
+  },
+  "nav": {
+    "features": "Tính năng",
+    "feedback": "Gói ý",
+    "roadmap": "Lộ trình",
+    "signin": "Đăng nhập",
+    "download": "Tải về"
+  },
+  "feedback": {
+    "title": "Góp ý & Đánh giá",
+    "description": "Bạn tìm thấy lỗi? Có ý tưởng mới? Hay chỉ đơn giản là yêu thích phần mềm? Hãy cho chúng tôi biết.",
+    "success_title": "Cảm ơn bạn!",
+    "success_description": "Góp ý của bạn đã được gửi tới hàng đợi kiểm duyệt.",
+    "label_message": "Lời nhắn của bạn",
+    "placeholder_message": "Tôi nghĩ trình soạn thảo câu hỏi cần thêm màu sắc...",
+    "label_attachments": "Đính kèm (Tùy chọn)",
+    "attachments_hint": "Kéo thả ảnh vào đây, hoặc click để chọn",
+    "submit": "Gửi Góp Ý"
+  },
+  "admin": {
+    "dashboard": "Bảng điều khiển",
+    "welcome": "Chào mừng quay lại",
+    "reviews": "Góp ý & Review",
+    "releases": "Phiên bản App"
+  }
+}

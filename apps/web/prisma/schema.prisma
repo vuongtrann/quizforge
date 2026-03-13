@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// ----------------------------------------
+// NextAuth - Auth.js Models (MongoDB)
+// ----------------------------------------
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+  reviews       Review[]  // Một người dùng có thể gửi nhiều review/góp ý
+  posts         Post[]    // Admin/Moderator có thể viết bài
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ----------------------------------------
+// Application Models
+// ----------------------------------------
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  RESOLVED
+  REJECTED
+}
+
+model Review {
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  content   String       // Nội dung góp ý hoặc báo lỗi (có thể chứa HTML/Markdown)
+  images    String[]     // Danh sách các URL ảnh do người dùng chèn (lưu trên S3/UploadThing)
+  rating    Int?         // Mức độ hài lòng (1-5 sao) hoặc rỗng nếu là báo lỗi
+  status    ReviewStatus @default(PENDING) // Trạng thái phê duyệt bởi Admin
+  
+  authorId  String?      @db.ObjectId // Cho phép review ẩn danh hoặc có tài khoản
+  author    User?        @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Release {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  version      String   @unique      // Ví dụ: "1.1.0"
+  releaseNotes String?               // Có thể chứa thẻ HTML tĩnh dội ra giao diện "What's new"
+  downloadUrl  String                // Link CDN của file .exe NSIS Installer
+  signature    String?               // Chuỗi chữ ký bắt buộc của Tauri (cho auto update)
+  isPublished  Boolean  @default(false)
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  slug      String   @unique
+  content   String   // Chứa nội dung dạng MDX hoặc HTML tĩnh
+  published Boolean  @default(false)
+  authorId  String   @db.ObjectId
+  author    User     @relation(fields: [authorId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
